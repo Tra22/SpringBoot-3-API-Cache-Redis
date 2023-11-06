@@ -48,6 +48,12 @@ There are a number of third-party dependencies used in the project. Browse the M
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+  		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
