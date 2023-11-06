@@ -84,7 +84,7 @@ There are a number of third-party dependencies used in the project. Browse the M
 You will need:
 
 *	Java JDK 17 or higher
-*	Maven 3.6.3 or higher
+*	Maven 3.5.1 or higher
 *	Tomcat 10.1
 
 Clone the project and use Maven to build the server
