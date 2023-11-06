@@ -16,8 +16,11 @@
                 <Pattern>${LOG_PATTERN}</Pattern>
             </PatternLayout>
             <Policies>
+                <!--On Startup Trigger Policy-->
                 <!-- rollover on startup, daily and when the file reaches
-                    5 KiloBytes -->
+                    5 MB -->
+                <!--TimeBasedTrigger Policy-->
+                <!--DefaultRolloverStrategy with maximum 10-->
                 <OnStartupTriggeringPolicy />
                 <SizeBasedTriggeringPolicy
                         size="5 MB" />
