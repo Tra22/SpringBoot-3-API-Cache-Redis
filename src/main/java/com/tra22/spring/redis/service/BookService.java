@@ -1,12 +1,16 @@
 package com.tra22.spring.redis.service;
 
 import com.tra22.spring.redis.dto.book.BookDto;
+import com.tra22.spring.redis.dto.book.CreateBookDto;
+import com.tra22.spring.redis.dto.book.UpdateBookDto;
 import com.tra22.spring.redis.exception.NotFoundEntityException;
 import com.tra22.spring.redis.mapper.book.IBookMapper;
+import com.tra22.spring.redis.model.Book;
 import com.tra22.spring.redis.repository.BookRepository;
 import com.tra22.spring.redis.service.interf.IBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
@@ -37,15 +41,16 @@ public class BookService implements IBookService {
     doLongRunningTask();
     return bookMapper.mapReverse(bookRepository.findById(id).orElseThrow(() -> new NotFoundEntityException("Not Found Book!")));
   }
-
-  public BookDto save(BookDto book) {
-    return bookMapper.mapReverse(bookRepository.save(bookMapper.map(book)));
+  public BookDto save(CreateBookDto book) {
+    Book _book = bookMapper.mapCreateBook(book);
+    bookRepository.save(_book);
+    return bookMapper.mapReverse(_book);
   }
 
   @CacheEvict(value = "book", key = "#book.id")
-  public BookDto update(BookDto book) {
+  public BookDto update(UpdateBookDto book) {
     bookRepository.findById(book.getId()).orElseThrow(() -> new NotFoundEntityException("Not Found Book!"));
-    return bookMapper.mapReverse(bookRepository.save(bookMapper.map(book)));
+    return bookMapper.mapReverse(bookRepository.save(bookMapper.mapUpdateBook(book)));
   }
 
   @CacheEvict(value = "book", key = "#id")

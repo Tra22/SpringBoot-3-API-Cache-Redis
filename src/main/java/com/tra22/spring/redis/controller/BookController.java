@@ -1,6 +1,9 @@
 package com.tra22.spring.redis.controller;
 
 import com.tra22.spring.redis.dto.book.BookDto;
+import com.tra22.spring.redis.dto.book.CreateBookDto;
+import com.tra22.spring.redis.dto.book.UpdateBookDto;
+import com.tra22.spring.redis.payload.global.Response;
 import com.tra22.spring.redis.service.interf.IBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +19,7 @@ import java.util.List;
 public class BookController {
   private final IBookService bookService;
   @GetMapping
-  public ResponseEntity<List<BookDto>> getAllBooks(@RequestParam(required = false) String title) {
+  public ResponseEntity<Response<?>> getAllBooks(@RequestParam(required = false) String title) {
       List<BookDto> books = new ArrayList<BookDto>();
       if (title == null)
           books.addAll(bookService.findAll());
@@ -25,22 +28,22 @@ public class BookController {
       if (books.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
       }
-      return new ResponseEntity<>(books, HttpStatus.OK);
+      return new ResponseEntity<>(Response.ok(books), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<BookDto> getBookById(@PathVariable("id") long id) {
-    return new ResponseEntity<>(bookService.findById(id), HttpStatus.OK);
+  public ResponseEntity<Response<?>> getBookById(@PathVariable("id") long id) {
+    return new ResponseEntity<>(Response.ok(bookService.findById(id)), HttpStatus.OK);
   }
 
   @PostMapping
-  public ResponseEntity<BookDto> createBook(@RequestBody BookDto book) {
-      return new ResponseEntity<>(bookService.save(book), HttpStatus.CREATED);
+  public ResponseEntity<Response<?>> createBook(@RequestBody CreateBookDto book) {
+      return new ResponseEntity<>(Response.ok(bookService.save(book)), HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<BookDto> updateBook(@PathVariable("id") long id, @RequestBody BookDto book) {
-      return new ResponseEntity<>(bookService.update(book), HttpStatus.OK);
+  public ResponseEntity<Response<?>> updateBook(@PathVariable("id") long id, @RequestBody UpdateBookDto book) {
+      return new ResponseEntity<>(Response.ok(bookService.update(book)), HttpStatus.OK);
   }
 
   @DeleteMapping("/{id}")
@@ -56,7 +59,7 @@ public class BookController {
   }
 
   @GetMapping("/published")
-  public ResponseEntity<List<BookDto>> findBookByPublished() {
-      return new ResponseEntity<>(bookService.findByPublished(true), HttpStatus.OK);
+  public ResponseEntity<Response<?>> findBookByPublished() {
+      return new ResponseEntity<>(Response.ok(bookService.findByPublished(true)), HttpStatus.OK);
   }
 }

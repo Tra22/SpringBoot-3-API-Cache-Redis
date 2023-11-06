@@ -23,10 +23,20 @@ public class RedisConfig {
   private String host;
   @Setter
   private int port;
+  @Setter
+  private String username;
+  @Setter
+  private String password;
   @Bean
   public LettuceConnectionFactory redisConnectionFactory() {
-    RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration(host, port);
-
+//    RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration(host, port);
+    RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
+    configuration.setHostName(host);
+    configuration.setPort(port);
+    if(StringUtils.hasText(username) && StringUtils.hasText(password)) {
+      configuration.setUsername(username);
+      configuration.setPassword(password);
+    }
     return new LettuceConnectionFactory(configuration);
   }
   @Bean

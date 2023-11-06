@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class UpdateBookDto implements Serializable {
+    private long id;
     private String title;
     private String description;
     private boolean published;
