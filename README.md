@@ -2,6 +2,18 @@
 An example of a RESTful WebServer developed using Spring & SpringBoot.
 
 This example explained about spring boot3 with cache redis server. 
+## Why HTTP Caching Matters for APIs?
+
+Caching is reduce the number of calls made to your endpoint and also improve the latency of requests to your API.
+* Performance improvement
+* Reduced server load
+* Bandwidth optimization
+* Scalability
+* Handling traffic spikes
+
+## When should using Cache for APIs?
+
+Using cache when your data is not volatile real-time data.
 
 ## Requirements
 
